@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  # db:
+  #   image: postgres
+
+  db:
+    # container_name: mysql_database
+    image: mysql/mysql-server
+    # command: mysqld --socket=/tmp/mysqld.sock
+    # environment:
+    #   MYSQL_ROOT_PASSWORD: 'itsasecret'
+    # ports:
+    #   - "3306:3306"
+    # volumes:
+    # - ./db:/var/lib/mysql
+    
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+
